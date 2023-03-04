@@ -1,14 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:pal_moh_app/screens/details_screen.dart';
 import '../models/org_card.dart';
 import '../models/organization.dart';
 import '../models/search_field.dart';
 import '../models/status_card.dart';
 import '../models/tags.dart';
 import '../models/visability.dart';
+import 'category_screen.dart';
+import 'newinbox_screen.dart';
+import 'search_filters_screen.dart';
+import 'status_screen.dart';
 
-class MyHomeScreen extends StatelessWidget {
+class MyHomeScreen extends StatefulWidget {
   MyHomeScreen({Key? key}) : super(key: key);
+  static const id = 'HomeScreen';
+  @override
+  State<MyHomeScreen> createState() => _MyHomeScreenState();
+}
 
+class _MyHomeScreenState extends State<MyHomeScreen> {
   bool officalOrgIsClicked = false;
 
   bool OthersIsClicked = false;
@@ -17,6 +28,68 @@ class MyHomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0xffE0EAF9),
+      drawer: Drawer(
+        backgroundColor: Colors.blueAccent,
+        child: Padding(
+          padding: const EdgeInsets.all(10),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Image(image: AssetImage('assets/capture.png')),
+              TextButton(
+                  onPressed: () {
+                    Navigator.pushNamed(context, MyHomeScreen.id);
+                  },
+                  child: Text('Home', style: TextStyle(fontSize: 20, color: Colors.white),)),
+              TextButton(
+                  onPressed: () {
+                    Navigator.pushNamed(context, NewInboxScreen.id);
+                  },
+                  child: Text('Inbox',style: TextStyle(fontSize: 20, color: Colors.white),)),
+              TextButton(
+                  onPressed: () {
+                    Navigator.pushNamed(context, CategoryScreen.id);
+                  },
+                  child: Text('Category',style: TextStyle(fontSize: 20, color: Colors.white),)),
+              TextButton(
+                  onPressed: () {
+                    Navigator.pushNamed(context, DetailsScreen.id);
+                  },
+                  child: Text('Details',style: TextStyle(fontSize: 20, color: Colors.white),)),
+              TextButton(
+                  onPressed: () {
+                    Navigator.pushNamed(context, StatusScreen.id);
+                  },
+                  child: Text('Status',style: TextStyle(fontSize: 20, color: Colors.white),)),
+              TextButton(
+                  onPressed: () {
+                    Navigator.pushNamed(context, SearchFilter.id);
+                  },
+                  child: Text('Filters',style: TextStyle(fontSize: 20, color: Colors.white),)),
+            ],
+          ),
+        ),
+      ),
+      appBar: AppBar(
+        iconTheme: IconThemeData(color: Colors.blueAccent),
+        backgroundColor: Color(0xffE0EAF9),
+        elevation: 0,
+        actions: [
+          Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: CircleAvatar(
+              radius: 20,
+              child: IconButton(
+                onPressed: () {},
+                icon: Icon(
+                  FontAwesomeIcons.person,
+                  color: Colors.white,
+                ),
+              ), //todo:add user image
+            ),
+          ),
+        ],
+      ),
       body: SingleChildScrollView(
         child: SafeArea(
           child: Column(
@@ -26,18 +99,6 @@ class MyHomeScreen extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          IconButton(
-                            onPressed: () {}, //todo:drawr
-                            icon: Icon(Icons.menu),
-                          ),
-                          CircleAvatar(
-                              radius: 25,
-                              child: Image.asset('') //todo:add user image
-                              ),
-                        ]),
                     SearchField(
                       onChanged: (value) {},
                     ),
@@ -47,7 +108,21 @@ class MyHomeScreen extends StatelessWidget {
                     Container(
                       height: 250,
                       width: double.infinity,
-                      child: StatusListGrid(),
+                      child: GridView.builder(
+                        itemCount: colorMap.length,
+                        physics: NeverScrollableScrollPhysics(),
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2,
+                            crossAxisSpacing: 20.0,
+                            mainAxisSpacing: 20.0,
+                            childAspectRatio: 170 / 100),
+                        itemBuilder: (BuildContext context, int index) =>
+                            StatusCard(
+                          circleColor: values[index],
+                          taskNum: '9',
+                          status: keys[index],
+                        ),
+                      ),
                     ),
                     VisabiltyCard(
                       isClicked: officalOrgIsClicked,
@@ -122,15 +197,25 @@ class MyHomeScreen extends StatelessWidget {
               Container(
                   padding: EdgeInsets.all(16),
                   color: Colors.white,
-                  height: 70,
+                  height: 80,
                   width: double.infinity,
                   child: Card(
                     elevation: 0,
                     child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        CircleAvatar(
-                          radius: 15,
-                          child: Icon(Icons.add),
+                        IconButton(
+                          onPressed: () {
+                            Navigator.pushNamed(context, NewInboxScreen.id);
+                          },
+                          icon: CircleAvatar(
+                            radius: 15,
+                            backgroundColor: Colors.blueAccent,
+                            child: const Icon(
+                              Icons.add,
+                              color: Colors.white,
+                            ),
+                          ),
                         ),
                         SizedBox(
                           width: 5,
@@ -148,30 +233,6 @@ class MyHomeScreen extends StatelessWidget {
             ],
           ),
         ),
-      ),
-    );
-  }
-}
-
-class StatusListGrid extends StatelessWidget {
-  const StatusListGrid({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return GridView.builder(
-      itemCount: colorMap.length,
-      physics: NeverScrollableScrollPhysics(),
-      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2,
-          crossAxisSpacing: 20.0,
-          mainAxisSpacing: 20.0,
-          childAspectRatio: 170 / 100),
-      itemBuilder: (BuildContext context, int index) => StatusCard(
-        circleColor: values[index],
-        taskNum: '9',
-        status: keys[index],
       ),
     );
   }

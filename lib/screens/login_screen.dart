@@ -28,6 +28,7 @@ class _LoginScreenState extends State<LoginScreen>
         builder: (context, child) {
           return SafeArea(
             child: Scaffold(
+              backgroundColor: Color(0xffE0EAF9),
               body: Stack(
                 children: [
                   Container(
@@ -68,6 +69,14 @@ class _LoginScreenState extends State<LoginScreen>
                       ),
                       Container(
                         decoration: BoxDecoration(
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey.withOpacity(0.3),
+                              spreadRadius: 2,
+                              blurRadius: 5,
+                              offset: Offset(0, 3),
+                            ),
+                          ],
                           color: Colors.white,
                           borderRadius: BorderRadius.all(
                             Radius.circular(59.r),
@@ -115,8 +124,7 @@ class _LoginScreenState extends State<LoginScreen>
                                     color: const Color(0xFF003AFC),
                                   ),
                                   labelColor: Colors.white,
-                                  unselectedLabelColor:
-                                      const Color(0xFF003AFC),
+                                  unselectedLabelColor: const Color(0xFF003AFC),
                                   tabs: const [
                                     Tab(
                                       text: 'Login',
@@ -156,10 +164,13 @@ class _LoginScreenState extends State<LoginScreen>
                                           fun: () {
                                             Navigator.pushReplacement(
                                               context,
-                                              MaterialPageRoute(builder: (context) => MyHomeScreen()),
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      MyHomeScreen()),
                                             );
                                           },
                                         ),
+                                        Links(),
                                       ],
                                     ),
                                     Column(
@@ -187,56 +198,16 @@ class _LoginScreenState extends State<LoginScreen>
                                           fun: () => Navigator.pushNamed(
                                               context, 'HomeScreen'),
                                         ),
-                                        SizedBox(
-                                          height: 20.h,
-                                        ),
-                                        Text(
-                                          'OR',
-                                          style: GoogleFonts.poppins(
-                                            fontSize: 14,
-                                            color: const Color(0xFFA8A7A7),
-                                          ),
-                                        ),
-                                        SizedBox(
-                                          height: 10.h,
-                                        ),
-                                        Row(
-                                          mainAxisAlignment: MainAxisAlignment.center,
-                                          children: [
-                                            IconButton(
-                                              onPressed: () {},
-                                              icon: Icon(
-                                                FontAwesomeIcons.facebook,
-                                                color: Colors.blue,
-                                              ),
-                                            ),
-                                            IconButton(
-                                              onPressed: () {},
-                                              icon: Icon(
-                                                FontAwesomeIcons.google,
-                                                color: Colors.green,
-                                              ),
-                                            ),
-                                            IconButton(
-                                              onPressed: () {},
-                                              icon: Icon(
-                                                FontAwesomeIcons.twitter,
-                                                color: Colors.blue,
-                                              ),
-                                            ),
-                                          ],
-                                        )
+                                        Links(),
                                       ],
                                     ),
                                   ],
                                 ),
                               ),
-
                             ],
                           ),
                         ),
                       ),
-
                     ],
                   ),
                 ],
@@ -248,8 +219,6 @@ class _LoginScreenState extends State<LoginScreen>
     );
   }
 }
-
-
 
 class MyButton extends StatelessWidget {
   final String text;
@@ -315,6 +284,78 @@ class MyTextField extends StatelessWidget {
         constraints: BoxConstraints(
           maxWidth: 262.42.w,
         ),
+      ),
+    );
+  }
+}
+
+class Links extends StatelessWidget {
+  const Links({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        SizedBox(
+          height: 20.h,
+        ),
+        Text(
+          'OR',
+          style: GoogleFonts.poppins(
+            fontSize: 14,
+            color: const Color(0xFFA8A7A7),
+          ),
+        ),
+        SizedBox(
+          height: 10.h,
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            IconButton(
+              onPressed: () {},
+              icon: Icon(
+                FontAwesomeIcons.facebook,
+                color: Colors.blue,
+              ),
+            ),
+            GradientIcon(
+              icon: FontAwesomeIcons.google,
+              gradient: LinearGradient(
+                colors: [Colors.red, Colors.orange, Colors.green, Colors.blue],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+              ),
+            ),
+            IconButton(
+              onPressed: () {},
+              icon: Icon(
+                FontAwesomeIcons.twitter,
+                color: Colors.blue,
+              ),
+            ),
+          ],
+        ),
+      ],
+    );
+  }
+}
+
+class GradientIcon extends StatelessWidget {
+  final IconData icon;
+  final Gradient gradient;
+
+  GradientIcon({required this.icon, required this.gradient});
+
+  @override
+  Widget build(BuildContext context) {
+    return ShaderMask(
+      shaderCallback: (Rect bounds) {
+        return gradient.createShader(bounds);
+      },
+      child: Icon(
+        icon,
+        color: Colors.white,
       ),
     );
   }

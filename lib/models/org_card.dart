@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'organization.dart';
 
 class OrgCard extends StatelessWidget {
@@ -8,6 +7,7 @@ class OrgCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      margin: EdgeInsets.only(bottom: 8),
       padding: EdgeInsets.all(8),
       decoration: BoxDecoration(
           color: Colors.white, borderRadius: BorderRadius.circular(25)),
@@ -16,41 +16,30 @@ class OrgCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Row(
-                children: [
-                  CircleAvatar(
-                    radius: 5,
-                    backgroundColor: colorMap[org.status],
+          SingleChildScrollView(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                CircleAvatar(
+                  radius: 5,
+                  backgroundColor: colorMap[org.status],
+                ),
+                Text(
+                  org.orgName,
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20,
                   ),
-                  SizedBox(
-                    width: 5,
-                  ),
-                  Text(
-                    org.orgName,
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20,
-                    ),
-                  ),
-                ],
-              ),
-              SizedBox(
-                width: 5,
-              ),
-              Row(
-                children: [
-                  Text(org.time.toString()),
-                  IconButton(
-                      onPressed: () {
-                        //todo:naviagate to massg detile
-                      },
-                      icon: Icon(Icons.navigate_next)),
-                ],
-              )
-            ],
+                ),
+
+                Text(org.time.toString()),
+                IconButton(
+                    onPressed: () {
+                      //todo:naviagate to massg detile
+                    },
+                    icon: Icon(Icons.navigate_next)),
+              ],
+            ),
           ),
           Text(
             org.subject,

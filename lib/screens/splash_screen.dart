@@ -3,9 +3,7 @@ import 'package:flutter/material.dart';
 import 'login_screen.dart';
 
 class SplashScreen extends StatefulWidget {
-  const SplashScreen({super.key, required this.title});
-
-  final String title;
+  const SplashScreen({super.key,});
 
   @override
   State<SplashScreen> createState() => _SplashScreenState();
@@ -31,9 +29,9 @@ class _SplashScreenState extends State<SplashScreen> {
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
         decoration: BoxDecoration(
+          color: Colors.blueAccent,
           image: DecorationImage(
-            image: AssetImage('assets/splash.PNG'),
-            fit: BoxFit.cover,
+            image: AssetImage('assets/capture.png'),
           ),
         ),
       ),

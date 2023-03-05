@@ -1,8 +1,12 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pal_moh_app/screens/home_screen.dart';
+import 'package:http/http.dart' as http;
+import '../apis/api.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -19,6 +23,31 @@ class _LoginScreenState extends State<LoginScreen>
     _tabController = TabController(length: 2, vsync: this);
     super.initState();
   }
+  final TextEditingController nameController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  final TextEditingController confirmPasswordController = TextEditingController();
+  register(String email, password,confirmPassword,name) async {
+    var body = jsonEncode({
+      'email': email,
+      'password': password,
+      'password_confirmation': confirmPassword,
+      'name':name
+    });
+    print(body);
+    var url = Uri.parse(registerApi);
+    http.Response response = await http.post(url, body: body);
+    var result = jsonDecode(response.body);
+    print("result $result");
+    if (result.statusCode == 200) {
+      print('success');
+      Navigator.pushNamedAndRemoveUntil(context, MyHomeScreen.id,(r)=>false);
+    } else {
+      print('error');
+    }
+    return response;
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -82,7 +111,7 @@ class _LoginScreenState extends State<LoginScreen>
                             Radius.circular(59.r),
                           ),
                         ),
-                        height: 630.h,
+                        height: 700.h,
                         width: 367.w,
                         child: Padding(
                           padding: EdgeInsets.only(top: 66.h),
@@ -147,13 +176,19 @@ class _LoginScreenState extends State<LoginScreen>
                                         SizedBox(
                                           height: 22.h,
                                         ),
-                                        const MyTextField(
-                                          field: 'Enter email or username',
+                                        MyTextField(
+                                          obscureText: false,
+                                          keyboardType: TextInputType.emailAddress,
+                                          controller: emailController,
+                                          field: 'Enter email or Name',
                                         ),
                                         SizedBox(
                                           height: 22.h,
                                         ),
-                                        const MyTextField(
+                                        MyTextField(
+                                          obscureText: true,
+                                          keyboardType: TextInputType.visiblePassword,
+                                          controller: passwordController,
                                           field: 'Password',
                                         ),
                                         SizedBox(
@@ -175,19 +210,37 @@ class _LoginScreenState extends State<LoginScreen>
                                     ),
                                     Column(
                                       children: [
-                                        const MyTextField(
-                                          field: 'Enter email or username',
+                                        MyTextField(
+                                          obscureText: false,
+                                          keyboardType: TextInputType.name,
+                                          controller: nameController,
+                                          field: 'Enter Name',
                                         ),
                                         SizedBox(
                                           height: 22.h,
                                         ),
-                                        const MyTextField(
+                                        MyTextField(
+                                          obscureText: false,
+                                          keyboardType: TextInputType.emailAddress,
+                                          controller: emailController,
+                                          field: 'Enter email or Name',
+                                        ),
+                                        SizedBox(
+                                          height: 22.h,
+                                        ),
+                                        MyTextField(
+                                          obscureText: true,
+                                          keyboardType: TextInputType.visiblePassword,
+                                          controller: passwordController,
                                           field: 'Password',
                                         ),
                                         SizedBox(
                                           height: 22.h,
                                         ),
-                                        const MyTextField(
+                                        MyTextField(
+                                          obscureText: true,
+                                          keyboardType: TextInputType.visiblePassword,
+                                          controller: confirmPasswordController,
                                           field: 'Confirm password',
                                         ),
                                         SizedBox(
@@ -195,8 +248,9 @@ class _LoginScreenState extends State<LoginScreen>
                                         ),
                                         MyButton(
                                           text: 'Sign up',
-                                          fun: () => Navigator.pushNamed(
-                                              context, 'HomeScreen'),
+                                            fun:() async {
+                                              await register(emailController.text,passwordController.text,confirmPasswordController.text,nameController.text);
+                                            }
                                         ),
                                         Links(),
                                       ],
@@ -262,14 +316,20 @@ class MyButton extends StatelessWidget {
 
 class MyTextField extends StatelessWidget {
   final String field;
+  final TextEditingController controller;
+  final TextInputType keyboardType;
+  final bool obscureText;
   const MyTextField({
     super.key,
-    required this.field,
+    required this.field, required this.controller, required this.keyboardType, required this.obscureText,
   });
 
   @override
   Widget build(BuildContext context) {
     return TextField(
+      controller: controller,
+      keyboardType: keyboardType ,
+      obscureText: obscureText,
       decoration: InputDecoration(
         hintText: field,
         hintStyle: GoogleFonts.poppins(

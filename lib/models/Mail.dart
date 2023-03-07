@@ -1,5 +1,8 @@
 import 'package:pal_moh_app/screens/sender_screen.dart';
 
+import '../screens/details_screen.dart';
+import 'Attachment.dart';
+
 class Mail{
 
   int? id;
@@ -14,8 +17,8 @@ class Mail{
   Sender? sender;
   // Status? status;
   // List<Tag?>? tags;
-  // List<Attachment?>? attachments;
-  // List<Activity?>? activities;
+  List<Attachment?>? attachments;
+  List<Activity?>? activities;
   DateTime? createdAt;
   DateTime? updatedAt;
 

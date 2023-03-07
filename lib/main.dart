@@ -21,20 +21,20 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
+      title: 'Pal Mail',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
       routes: {
-        '/': (context) => SplashScreen(),
-        LoginScreen.id: (context) => LoginScreen(),
+        '/': (context) => const SplashScreen(),
+        LoginScreen.id: (context) => const LoginScreen(),
         MyHomeScreen.id: (context) => MyHomeScreen(),
         DetailsScreen.id: (context) => DetailsScreen(),
         NewInboxScreen.id: (context) => NewInboxScreen(),
-        TagsScreen.id: (context) => TagsScreen(),
-        CategoryScreen.id: (context) => CategoryScreen(),
-        StatusScreen.id: (context) => StatusScreen(),
-        SearchFilter.id: (context) => SearchFilter(),
+        TagsScreen.id: (context) => const TagsScreen(),
+        CategoryScreen.id: (context) => const CategoryScreen(),
+        StatusScreen.id: (context) => const StatusScreen(),
+        SearchFilter.id: (context) => const SearchFilter(),
         SenderScreen.id: (context) => SenderScreen(),
       },
     );

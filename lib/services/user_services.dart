@@ -3,6 +3,8 @@
 import 'dart:convert';
 import 'dart:html';
 
+import 'package:shared_preferences/shared_preferences.dart';
+
 import '../apis/ApiResponse.dart';
 import '../apis/api.dart';
 import '../models/User.dart';
@@ -10,6 +12,16 @@ import '../utills/constants.dart';
 import 'package:http/http.dart' as http;
 
 class UserServices{
+  String token = '';
+  Future<bool> setToken(String value) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.setString('token', value);
+  }
+
+  Future<String?> getToken() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getString('token');
+  }
   Future<ApiResponse> register({required String email, required String password, required String confirmPassword,required String name}) async{
     ApiResponse apiResponse = ApiResponse();
     try {
@@ -76,20 +88,24 @@ class UserServices{
   Future<ApiResponse> getUserDetail() async {
     ApiResponse apiResponse = ApiResponse();
     try{
-      // String token = await getToken();
+      String? token = await getToken();
       final response = await http.get(
           Uri.parse(getSingleUserApi),
           headers: {
             'Accept': 'application/json',
-        //    'Authorization': 'Bearer $token',
+            'Authorization': 'Bearer $token',
           },
       );
-          switch (response.statusCode) {
+      print('Token : ${token}');
+      print(response);
+           switch (response.statusCode) {
             case 200:
-              apiResponse.data = User.fromJson(jsonDecode (response.body));
+              apiResponse.data = User.fromJson(jsonDecode (response.body)).token;
+              // setToken();
               break;
             case 422:
-              final errors = jsonDecode (response.body) ['errors']; apiResponse.error = errors [errors.keys.elementAt(0)][0];
+              final errors = jsonDecode (response.body) ['errors'];
+              apiResponse.error = errors [errors.keys.elementAt(0)][0];
               break;
             case 403:
               apiResponse.error = jsonDecode (response.body) ['message'];
@@ -146,6 +162,7 @@ class UserServices{
     }
     return apiResponse;
     }
+    //image
 //   Future<int> uploadImage(File file, mailId) async {
 //     // String token = await getToken();
 //     var request = http.MultipartRequest("POST", Uri.parse(attachmentApi));

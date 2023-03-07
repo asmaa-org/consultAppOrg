@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import '../models/date_picker.dart';
 import 'category_screen.dart';
 import 'home_screen.dart';
+import 'models_screen/date_picker.dart';
 import 'sender_screen.dart';
 import 'status_screen.dart';
 import 'tags_screen.dart';

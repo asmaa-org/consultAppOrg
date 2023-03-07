@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pal_moh_app/screens/details_screen.dart';
-import '../models/org_card.dart';
-import '../models/organization.dart';
-import '../models/search_field.dart';
-import '../models/status_card.dart';
-import '../models/tags.dart';
-import '../models/visability.dart';
+
+import 'models_screen/org_card.dart';
+import 'models_screen/organization.dart';
+import 'models_screen/search_field.dart';
+import 'models_screen/status_card.dart';
+import 'models_screen/tags.dart';
+import 'models_screen/visability.dart';
 import 'category_screen.dart';
 import 'newinbox_screen.dart';
 import 'search_filters_screen.dart';

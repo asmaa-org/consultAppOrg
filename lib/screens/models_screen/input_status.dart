@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'constants.dart';
+import '../../utills/constants.dart';
 
 class InputStatus extends StatefulWidget {
   const InputStatus({Key? key}) : super(key: key);

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pal_moh_app/screens/details_screen.dart';
-import '../models/input_status.dart';
+import 'models_screen/input_status.dart';
 import 'newinbox_screen.dart';
 
 class StatusScreen extends StatefulWidget {

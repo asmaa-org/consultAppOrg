@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pal_moh_app/screens/newinbox_screen.dart';
-import '../models/tags.dart';
+
+import 'models_screen/tags.dart';
 
 class TagsScreen extends StatefulWidget {
   const TagsScreen({Key? key}) : super(key: key);

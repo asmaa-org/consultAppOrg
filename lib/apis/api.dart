@@ -1,5 +1,5 @@
 
-const String baseApi = "http://127.0.0.1:8000/api";
+const String baseApi = "https://palmail.betweenltd.com/api";
 const String loginApi = "$baseApi/login";
 const String registerApi = "$baseApi/register";
 const String updateUserApi = "$baseApi/user/update";

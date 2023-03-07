@@ -1,5 +1,7 @@
 
 
+import 'Role.dart';
+
 class User {
   int? id;
   String? name;
@@ -10,7 +12,7 @@ class User {
   String? token;
   DateTime? createdAt;
   DateTime? updatedAt;
-  // Role? role;
+  Role? role;
 
   User({
     this.id,
@@ -22,7 +24,7 @@ class User {
     this.roleId,
     this.createdAt,
     this.updatedAt,
-    // this.role
+    this.role
   });
 
   User.fromJson(Map<String, dynamic> json) {

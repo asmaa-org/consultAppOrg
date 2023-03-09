@@ -141,7 +141,7 @@ class _MyHomeScreenState extends State<MyHomeScreen> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
+                        const Text(
                           "NGOs",
                           style: TextStyle(
                             fontWeight: FontWeight.bold,

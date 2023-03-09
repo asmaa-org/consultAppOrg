@@ -8,11 +8,12 @@ class User {
   String? email;
   String? image;
   DateTime? emailVerifiedAt;
+  Role? role;
   int? roleId;
   String? token;
   DateTime? createdAt;
   DateTime? updatedAt;
-  Role? role;
+
 
   User({
     this.id,
@@ -38,7 +39,7 @@ class User {
     token = json['token'];
     createdAt = DateTime.tryParse(json['user']['created_at']);
     updatedAt = DateTime.tryParse(json['user']['updated_at']);
-    // role = json['user']['role'] != null ? Role.fromJson(json['user']['role']) : null;
+    role = json['user']['role'] != null ? Role.fromJson(json['user']['role']) : null;
   }
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
@@ -51,9 +52,9 @@ class User {
     data['token'] = token;
     data['created_at'] = createdAt;
     data['updated_at'] = updatedAt;
-    // if (role != null) {
-    // data['role'] = role! toJson();
-    // }
+    if (role != null) {
+    data['role'] = role!.toJson();
+    }
     return data;
   }
   User.fromJson2 (Map<String, dynamic> json) {
@@ -65,6 +66,6 @@ class User {
     roleId = json['role_id'];
     createdAt = DateTime.tryParse(json['created_at']);
     updatedAt = DateTime.tryParse(json['updated_at']);
-    // role = json['role'] = null Role.fromJson(json['role']): null;
+    role = json['role'] != null ? Role.fromJson(json['role']): null;
   }
 }

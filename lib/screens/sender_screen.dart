@@ -138,15 +138,15 @@ class AllSenders extends StatelessWidget {
           ),
         ),
         const divider(),
-        const Sender(),
-        const Sender(),
+        const Sender1(),
+        const Sender1(),
       ],
     );
   }
 }
 
-class Sender extends StatelessWidget {
-  const Sender({
+class Sender1 extends StatelessWidget {
+  const Sender1({
     Key? key,
   }) : super(key: key);
 

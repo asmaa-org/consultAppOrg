@@ -3,6 +3,7 @@ import 'package:pal_moh_app/screens/sender_screen.dart';
 import '../screens/details_screen.dart';
 import 'Attachment.dart';
 import 'Status.dart';
+import 'Sender.dart';
 import 'Tag.dart';
 
 class Mail{
@@ -35,10 +36,10 @@ class Mail{
     this.statusId,
     this.finalDecision,
     this.sender,
-    //this.status,
-    //this.tags,
-    //this.attachments,
-    //this.activities,
+    this.status,
+    this.tags,
+    this.attachments,
+    this.activities,
     this.createdAt,
     this.updatedAt
 });
@@ -51,9 +52,9 @@ class Mail{
     archiveDate = DateTime.tryParse(json['archive_date']);
     decision = json['decision'];
     statusId = json['status_id'];
-    finalDecision = json['final decision'];
-    // sender = json['sender'] != null ? Sender.fromJson(json['sender']): null ;
-    // status = json['status'] != null ? Status.fromJson(json['status']): null ;
+    finalDecision = json['final_decision'];
+    sender = json['sender'] != null ? Sender.fromJson(json['sender']): null ;
+    status = json['status'] != null ? Status.fromJson(json['status']): null ;
     createdAt = DateTime.tryParse(json['created_at']);
     updatedAt = DateTime.tryParse(json['updated_at']);
     }
@@ -68,15 +69,15 @@ class Mail{
     data['decision'] = decision;
     data['status_id'] = statusId;
     data['final_decision'] = finalDecision;
-    // data['tags'] = tags;
-    // data['attachments'] = attachments;
-    // data['activities'] = activities;
+    data['tags'] = tags;
+    data['attachments'] = attachments;
+    data['activities'] = activities;
     if (sender != null) {
-    // data['sender'] = sender!.toJson();
+    data['sender'] = sender!.toJson();
     }
-    // if (status != null){
-    //    data['status'] = status!.toJson();
-    // }
+    if (status != null){
+       data['status'] = status!.toJson();
+    }
     data['created_at'] = createdAt;
     data['updated_at'] = updatedAt;
     return data;

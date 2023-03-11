@@ -1,6 +1,4 @@
-
-
-class Attachment{
+class Attachment {
   int? id;
   String? title;
   String? image;
@@ -15,8 +13,9 @@ class Attachment{
     this.mailId,
     this.createdAt,
     this.updatedAt,
-});
-  Attachment.fromJson (Map<String, dynamic> json) {
+  });
+
+  Attachment.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     title = json['title'];
     image = json['image'];
@@ -24,6 +23,7 @@ class Attachment{
     createdAt = DateTime.tryParse(json['created_at']);
     updatedAt = DateTime.tryParse(json['updated_at']);
   }
+
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = id;

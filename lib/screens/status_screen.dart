@@ -1,5 +1,6 @@
+import 'package:consultApp/screens/details_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:pal_moh_app/screens/details_screen.dart';
+
 import 'models_screen/input_status.dart';
 import 'newinbox_screen.dart';
 
@@ -9,6 +10,7 @@ class StatusScreen extends StatefulWidget {
   @override
   State<StatusScreen> createState() => _StatusScreenState();
 }
+
 class _StatusScreenState extends State<StatusScreen> {
   @override
   Widget build(BuildContext context) {
@@ -33,9 +35,7 @@ class _StatusScreenState extends State<StatusScreen> {
             ),
             Text(
               'Status',
-              style: TextStyle(
-                  fontSize: 18,
-                  color: Colors.black),
+              style: TextStyle(fontSize: 18, color: Colors.black),
             ),
             TextButton(
               onPressed: () {

@@ -1,5 +1,4 @@
-
-class Sender{
+class Sender {
   int? id;
   String? name;
   String? mobile;
@@ -18,9 +17,7 @@ class Sender{
     this.updatedAt,
   });
 
-
-
-  Sender.fromJson (Map<String, dynamic> json) {
+  Sender.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     name = json['name'];
     mobile = json['mobile'];
@@ -29,6 +26,7 @@ class Sender{
     createdAt = DateTime.tryParse(json['created_at']);
     updatedAt = DateTime.tryParse(json['updated_at']);
   }
+
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = id;
@@ -40,6 +38,4 @@ class Sender{
     data['updated_at'] = updatedAt;
     return data;
   }
-
-
 }

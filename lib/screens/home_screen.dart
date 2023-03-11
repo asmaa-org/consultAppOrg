@@ -1,14 +1,14 @@
+import 'package:consultApp/screens/details_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:pal_moh_app/screens/details_screen.dart';
 
+import 'category_screen.dart';
 import 'models_screen/org_card.dart';
 import 'models_screen/organization.dart';
 import 'models_screen/search_field.dart';
 import 'models_screen/status_card.dart';
 import 'models_screen/tags.dart';
 import 'models_screen/visability.dart';
-import 'category_screen.dart';
 import 'newinbox_screen.dart';
 import 'search_filters_screen.dart';
 import 'status_screen.dart';
@@ -41,32 +41,50 @@ class _MyHomeScreenState extends State<MyHomeScreen> {
                   onPressed: () {
                     Navigator.pushNamed(context, MyHomeScreen.id);
                   },
-                  child: Text('Home', style: TextStyle(fontSize: 20, color: Colors.white),)),
+                  child: Text(
+                    'Home',
+                    style: TextStyle(fontSize: 20, color: Colors.white),
+                  )),
               TextButton(
                   onPressed: () {
                     Navigator.pushNamed(context, NewInboxScreen.id);
                   },
-                  child: Text('Inbox',style: TextStyle(fontSize: 20, color: Colors.white),)),
+                  child: Text(
+                    'Inbox',
+                    style: TextStyle(fontSize: 20, color: Colors.white),
+                  )),
               TextButton(
                   onPressed: () {
                     Navigator.pushNamed(context, CategoryScreen.id);
                   },
-                  child: Text('Category',style: TextStyle(fontSize: 20, color: Colors.white),)),
+                  child: Text(
+                    'Category',
+                    style: TextStyle(fontSize: 20, color: Colors.white),
+                  )),
               TextButton(
                   onPressed: () {
                     Navigator.pushNamed(context, DetailsScreen.id);
                   },
-                  child: Text('Details',style: TextStyle(fontSize: 20, color: Colors.white),)),
+                  child: Text(
+                    'Details',
+                    style: TextStyle(fontSize: 20, color: Colors.white),
+                  )),
               TextButton(
                   onPressed: () {
                     Navigator.pushNamed(context, StatusScreen.id);
                   },
-                  child: Text('Status',style: TextStyle(fontSize: 20, color: Colors.white),)),
+                  child: Text(
+                    'Status',
+                    style: TextStyle(fontSize: 20, color: Colors.white),
+                  )),
               TextButton(
                   onPressed: () {
                     Navigator.pushNamed(context, SearchFilter.id);
                   },
-                  child: Text('Filters',style: TextStyle(fontSize: 20, color: Colors.white),)),
+                  child: Text(
+                    'Filters',
+                    style: TextStyle(fontSize: 20, color: Colors.white),
+                  )),
             ],
           ),
         ),

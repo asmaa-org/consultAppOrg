@@ -1,11 +1,4 @@
-
-
-import 'package:provider/provider.dart';
-
-import '../apis/ApiResponse.dart';
-import '../models/User.dart';
-
-class StateManager{
+class StateManager {
 //
 //   final userStateFuture = FutureProvider.autoDispose<User>((ref) async {
 //     ApiResponse response = await getUserDetail();

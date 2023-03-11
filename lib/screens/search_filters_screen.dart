@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import '../utills/constants.dart';
+
+import '../utilities/constants.dart';
 import 'models_screen/date_picker.dart';
 import 'newinbox_screen.dart';
 
@@ -35,9 +36,7 @@ class _SearchFilterState extends State<SearchFilter> {
                 ),
                 Text(
                   'Filters',
-                  style: TextStyle(
-                      fontSize: 18,
-                      color: Colors.black),
+                  style: TextStyle(fontSize: 18, color: Colors.black),
                 ),
                 TextButton(
                   onPressed: () {
@@ -127,101 +126,107 @@ class _SearchFilterState extends State<SearchFilter> {
                   child: Container(
                     height: 300,
                     decoration: BoxDecoration(
-                        color: Colors.white, borderRadius: BorderRadius.circular(25)),
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(25)),
                     child: Padding(
                       padding: const EdgeInsets.all(10),
                       child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                        Row(children: [
-                          Container(
-                            height: 32,
-                            width: 32,
-                            decoration: BoxDecoration(
-                                color: Colors.redAccent,
-                                borderRadius: BorderRadius.circular(10)),
-                          ),
-                          SizedBox(
-                            width: 15,
-                          ),
-                          Text(
-                            'Inbox',
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 18,
-                            ),
-                          ),
-                        ]),
-                        Divider(),
-                        SizedBox(height: 15),
-                        Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-                          Row(
-                            children: [
+                            Row(children: [
                               Container(
                                 height: 32,
                                 width: 32,
                                 decoration: BoxDecoration(
-                                    color: Colors.amberAccent,
+                                    color: Colors.redAccent,
                                     borderRadius: BorderRadius.circular(10)),
                               ),
                               SizedBox(
                                 width: 15,
                               ),
                               Text(
-                                'Pending',
+                                'Inbox',
                                 style: TextStyle(
                                   color: Colors.black,
                                   fontSize: 18,
                                 ),
                               ),
-                            ],
-                          ),
-                          Icon(
-                            Icons.check,
-                            color: Colors.blueAccent,
-                          ),
-                        ]),
-                        Divider(),
-                        SizedBox(height: 15),
-                        Row(children: [
-                          Container(
-                            height: 32,
-                            width: 32,
-                            decoration: BoxDecoration(
-                                color: Colors.blueAccent,
-                                borderRadius: BorderRadius.circular(10)),
-                          ),
-                          SizedBox(
-                            width: 15,
-                          ),
-                          Text(
-                            'In Progress',
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 18,
-                            ),
-                          ),
-                        ]),
-                        Divider(),
-                        SizedBox(height: 15),
-                        Row(children: [
-                          Container(
-                            height: 32,
-                            width: 32,
-                            decoration: colorBoxDecoration.copyWith(color: Colors.green),
-                          ),
-                          SizedBox(
-                            width: 15,
-                          ),
-                          Text(
-                            'Completed',
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 18,
-                            ),
-                          ),
-                        ]),
-                      ]),
+                            ]),
+                            Divider(),
+                            SizedBox(height: 15),
+                            Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Row(
+                                    children: [
+                                      Container(
+                                        height: 32,
+                                        width: 32,
+                                        decoration: BoxDecoration(
+                                            color: Colors.amberAccent,
+                                            borderRadius:
+                                                BorderRadius.circular(10)),
+                                      ),
+                                      SizedBox(
+                                        width: 15,
+                                      ),
+                                      Text(
+                                        'Pending',
+                                        style: TextStyle(
+                                          color: Colors.black,
+                                          fontSize: 18,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  Icon(
+                                    Icons.check,
+                                    color: Colors.blueAccent,
+                                  ),
+                                ]),
+                            Divider(),
+                            SizedBox(height: 15),
+                            Row(children: [
+                              Container(
+                                height: 32,
+                                width: 32,
+                                decoration: BoxDecoration(
+                                    color: Colors.blueAccent,
+                                    borderRadius: BorderRadius.circular(10)),
+                              ),
+                              SizedBox(
+                                width: 15,
+                              ),
+                              Text(
+                                'In Progress',
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 18,
+                                ),
+                              ),
+                            ]),
+                            Divider(),
+                            SizedBox(height: 15),
+                            Row(children: [
+                              Container(
+                                height: 32,
+                                width: 32,
+                                decoration: colorBoxDecoration.copyWith(
+                                    color: Colors.green),
+                              ),
+                              SizedBox(
+                                width: 15,
+                              ),
+                              Text(
+                                'Completed',
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 18,
+                                ),
+                              ),
+                            ]),
+                          ]),
                     ),
                   ),
                 ),
@@ -259,7 +264,8 @@ class _SearchFilterState extends State<SearchFilter> {
                                     Text(
                                       'July 5, 2022',
                                       style: TextStyle(
-                                          fontSize: 12, color: Color(0xff6589FF)),
+                                          fontSize: 12,
+                                          color: Color(0xff6589FF)),
                                     ),
                                   ],
                                 ),
@@ -276,7 +282,8 @@ class _SearchFilterState extends State<SearchFilter> {
                                     Text(
                                       'July 5, 2022',
                                       style: TextStyle(
-                                          fontSize: 12, color: Color(0xff6589FF)),
+                                          fontSize: 12,
+                                          color: Color(0xff6589FF)),
                                     ),
                                   ],
                                 ),

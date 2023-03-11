@@ -1,23 +1,18 @@
-
-
-class Category{
+class Category {
   int? id;
   String? name;
   DateTime? createdAt;
   DateTime? updatedAt;
 
-  Category({
-    this.id,
-    this.name,
-    this.createdAt,
-    this.updatedAt
-});
-  Category.fromJson (Map<String, dynamic> json) {
+  Category({this.id, this.name, this.createdAt, this.updatedAt});
+
+  Category.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     name = json['name'];
     createdAt = DateTime.tryParse(json['created_at']);
     updatedAt = DateTime.tryParse(json['updated_at']);
   }
+
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = id;

@@ -1,40 +1,41 @@
-
 import 'dart:convert';
-import '../apis/ApiResponse.dart';
+
 import 'package:http/http.dart' as http;
+
+import '../apis/ApiResponse.dart';
 import '../apis/api.dart';
 import '../models/Mail.dart';
-import '../utills/constants.dart';
+import '../utilities/constants.dart';
 
-class SearchServices{
-  Future<ApiResponse> searchText(int text) async{
+class SearchServices {
+  Future<ApiResponse> searchText(int text) async {
     ApiResponse apiResponse = ApiResponse();
-    try{
+    try {
       final response = await http.get(
         Uri.parse("$searchApi$text"),
-        headers: {'Accept': 'application/json',
+        headers: {
+          'Accept': 'application/json',
           'Authorization': 'Bearer $token',
         },
       );
       print('Token : ${token}');
       print(response);
-      print (response.statusCode);
+      print(response.statusCode);
       switch (response.statusCode) {
         case 200:
-          apiResponse.data = Mail.fromJson(jsonDecode (response.body));
+          apiResponse.data = Mail.fromJson(jsonDecode(response.body));
           break;
         case 422:
-          var errors = jsonDecode(response.body) ['errors'];
-          apiResponse.error = errors [errors.keys.elementAt(0)][0];
+          var errors = jsonDecode(response.body)['errors'];
+          apiResponse.error = errors[errors.keys.elementAt(0)][0];
           break;
         case 403:
-          apiResponse.error = jsonDecode (response.body) ['message'];
+          apiResponse.error = jsonDecode(response.body)['message'];
           break;
         default:
           apiResponse.error = somethingWentWrong;
       }
-    }
-    catch(e){
+    } catch (e) {
       print(e.toString());
       apiResponse.error = serverError;
     }

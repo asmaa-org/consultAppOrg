@@ -1,6 +1,4 @@
-
-
-class Activity{
+class Activity {
   int? id;
   String? body;
   int? userId;
@@ -12,17 +10,18 @@ class Activity{
   DateTime? updatedAt;
 
   Activity({
-   this.id,
-   this.body,
-   this.mailId,
-   this.userId,
-   this.sendNumber,
-   this.sendDate,
-   this.sendDestination,
-   this.createdAt,
-   this.updatedAt,
-});
-  Activity.fromJson (Map<String, dynamic> json) {
+    this.id,
+    this.body,
+    this.mailId,
+    this.userId,
+    this.sendNumber,
+    this.sendDate,
+    this.sendDestination,
+    this.createdAt,
+    this.updatedAt,
+  });
+
+  Activity.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     body = json['body'];
     mailId = json['mail_id'];
@@ -33,6 +32,7 @@ class Activity{
     createdAt = DateTime.tryParse(json['created_at']);
     updatedAt = DateTime.tryParse(json['updated_at']);
   }
+
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = id;

@@ -1,5 +1,5 @@
+import 'package:consultApp/screens/newinbox_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:pal_moh_app/screens/newinbox_screen.dart';
 
 import 'models_screen/tags.dart';
 
@@ -35,9 +35,7 @@ class _TagsScreenState extends State<TagsScreen> {
               ),
               Text(
                 'Tags',
-                style: TextStyle(
-                    fontSize: 18,
-                    color: Colors.black),
+                style: TextStyle(fontSize: 18, color: Colors.black),
               ),
               TextButton(
                 onPressed: () {

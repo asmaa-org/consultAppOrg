@@ -1,5 +1,3 @@
-
-
 import 'Role.dart';
 
 class User {
@@ -14,19 +12,17 @@ class User {
   DateTime? createdAt;
   DateTime? updatedAt;
 
-
-  User({
-    this.id,
-    this.name,
-    this.email,
-    this.token,
-    this.emailVerifiedAt,
-    this.image,
-    this.roleId,
-    this.createdAt,
-    this.updatedAt,
-    this.role
-  });
+  User(
+      {this.id,
+      this.name,
+      this.email,
+      this.token,
+      this.emailVerifiedAt,
+      this.image,
+      this.roleId,
+      this.createdAt,
+      this.updatedAt,
+      this.role});
 
   User.fromJson(Map<String, dynamic> json) {
     id = json['user']['id'];
@@ -39,8 +35,11 @@ class User {
     token = json['token'];
     createdAt = DateTime.tryParse(json['user']['created_at']);
     updatedAt = DateTime.tryParse(json['user']['updated_at']);
-    role = json['user']['role'] != null ? Role.fromJson(json['user']['role']) : null;
+    role = json['user']['role'] != null
+        ? Role.fromJson(json['user']['role'])
+        : null;
   }
+
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = id;
@@ -53,11 +52,12 @@ class User {
     data['created_at'] = createdAt;
     data['updated_at'] = updatedAt;
     if (role != null) {
-    data['role'] = role!.toJson();
+      data['role'] = role!.toJson();
     }
     return data;
   }
-  User.fromJson2 (Map<String, dynamic> json) {
+
+  User.fromJson2(Map<String, dynamic> json) {
     id = json['id'];
     name = json['name'];
     email = json['email'];
@@ -66,6 +66,6 @@ class User {
     roleId = json['role_id'];
     createdAt = DateTime.tryParse(json['created_at']);
     updatedAt = DateTime.tryParse(json['updated_at']);
-    role = json['role'] != null ? Role.fromJson(json['role']): null;
+    role = json['role'] != null ? Role.fromJson(json['role']) : null;
   }
 }

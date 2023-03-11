@@ -1,6 +1,6 @@
+import 'package:consultApp/screens/status_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:pal_moh_app/screens/status_screen.dart';
 
 import 'home_screen.dart';
 
@@ -332,7 +332,7 @@ class DetailsScreen extends StatelessWidget {
                         ],
                       ),
                       IconButton(
-                        onPressed: (){
+                        onPressed: () {
                           Navigator.pushNamed(context, StatusScreen.id);
                         },
                         icon: Icon(
@@ -395,7 +395,8 @@ class DetailsScreen extends StatelessWidget {
                       TextButton(
                         child: Text(
                           'Add Image',
-                          style: TextStyle(color: Colors.blueAccent, fontSize: 15),
+                          style:
+                              TextStyle(color: Colors.blueAccent, fontSize: 15),
                         ),
                         onPressed: () {},
                       ),

@@ -15,20 +15,21 @@ import 'status_screen.dart';
 
 class MyHomeScreen extends StatefulWidget {
   MyHomeScreen({Key? key}) : super(key: key);
+
   static const id = 'HomeScreen';
+
   @override
   State<MyHomeScreen> createState() => _MyHomeScreenState();
 }
 
 class _MyHomeScreenState extends State<MyHomeScreen> {
   bool officalOrgIsClicked = false;
-
   bool OthersIsClicked = false;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xffE0EAF9),
+      backgroundColor: Color(0xfff3f6ff),
       drawer: Drawer(
         backgroundColor: Colors.blueAccent,
         child: Padding(

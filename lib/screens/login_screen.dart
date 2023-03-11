@@ -252,9 +252,12 @@ class _LoginScreenState extends State<LoginScreen>
                                                                 .text,
                                                         name: nameController
                                                             .text);
-                                                print(apiResponse.data);
+                                                print('hhhh');
+                                                print(apiResponse.data
+                                                    .toString());
                                                 print(apiResponse.error);
                                                 if (apiResponse.error == null) {
+                                                  // userServices.setToken();
                                                   Navigator.pushNamed(
                                                       context, MyHomeScreen.id);
                                                 }

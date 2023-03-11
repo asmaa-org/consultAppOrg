@@ -24,6 +24,10 @@ class User {
       this.updatedAt,
       this.role});
 
+  String? getToken() {
+    return token;
+  }
+
   User.fromJson(Map<String, dynamic> json) {
     id = json['user']['id'];
     name = json['user']['name'];

@@ -6,12 +6,28 @@ import 'models_screen/date_picker.dart';
 import 'sender_screen.dart';
 import 'status_screen.dart';
 import 'tags_screen.dart';
+import 'package:intl/intl.dart';
 
-class NewInboxScreen extends StatelessWidget {
+class NewInboxScreen extends StatefulWidget {
   NewInboxScreen({Key? key}) : super(key: key);
 
   static const id = 'NewInboxScreen';
+
+  @override
+  State<NewInboxScreen> createState() => _NewInboxScreenState();
+}
+
+class _NewInboxScreenState extends State<NewInboxScreen> {
   TextEditingController controller = TextEditingController();
+
+  TextEditingController senderController = TextEditingController();
+
+  TextEditingController titlemailController = TextEditingController();
+
+  TextEditingController describtionController = TextEditingController();
+
+  TextEditingController desicionController = TextEditingController();
+  DateTime mydate = DateTime.now();
 
   @override
   Widget build(BuildContext context) {
@@ -26,8 +42,7 @@ class NewInboxScreen extends StatelessWidget {
           children: [
             TextButton(
               onPressed: () {
-                Navigator.pushNamedAndRemoveUntil(
-                    context, MyHomeScreen.id, (r) => false);
+                Navigator.pop(context);
               },
               child: Text(
                 'Cancel',
@@ -36,9 +51,7 @@ class NewInboxScreen extends StatelessWidget {
             ),
             Text(
               'New Inbox',
-              style: TextStyle(
-                  fontSize: 18,
-                  color: Colors.black),
+              style: TextStyle(fontSize: 18, color: Colors.black),
             ),
             TextButton(
               onPressed: () {
@@ -74,34 +87,35 @@ class NewInboxScreen extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Row(
-                            children: [
-                              Icon(
-                                Icons.person_outline,
-                                color: Colors.grey,
-                              ),
-                              SizedBox(
-                                width: 5,
-                              ),
-                              Text(
-                                'Sender',
-                                style: TextStyle(
-                                    color: Color(0XFFAFAFAF),
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 18),
-                              ),
-                            ],
+                          Icon(
+                            Icons.person_outline,
+                            color: Colors.grey,
                           ),
-                          Row(
-                            children: [
-                              IconButton(
-                                  onPressed: () {
-                                    Navigator.pushNamed(context, SenderScreen.id);
-                                  },
-                                  icon: Icon(Icons.info_outline,
-                                      color: Color(0xff6589FF)))
-                            ],
+                          SizedBox(
+                            width: 5,
                           ),
+                          Flexible(
+                            child: TextField(
+                              controller: senderController,
+                              style:
+                                  TextStyle(fontSize: 18, color: Colors.black),
+                              decoration: InputDecoration(
+                                border: InputBorder.none,
+                                hintText: 'Sender',
+                                hintStyle: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 18,
+                                  color: Color(0XFFAFAFAF),
+                                ),
+                              ),
+                            ),
+                          ),
+                          IconButton(
+                              onPressed: () {
+                                Navigator.pushNamed(context, SenderScreen.id);
+                              },
+                              icon: Icon(Icons.info_outline,
+                                  color: Color(0xff6589FF))),
                         ],
                       ),
                       Padding(
@@ -157,12 +171,17 @@ class NewInboxScreen extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        'Title of mail',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20,
-                          color: Color(0XFFAFAFAF),
+                      TextField(
+                        controller: titlemailController,
+                        style: TextStyle(fontSize: 18, color: Colors.black),
+                        decoration: InputDecoration(
+                          border: InputBorder.none,
+                          hintText: 'Title of Mail',
+                          hintStyle: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20,
+                            color: Color(0XFFAFAFAF),
+                          ),
                         ),
                       ),
                       Padding(
@@ -174,9 +193,18 @@ class NewInboxScreen extends StatelessWidget {
                           color: Color(0XFFD0D0D0),
                         ),
                       ),
-                      Text(
-                        'Description',
-                        style: TextStyle(fontSize: 16, color: Colors.grey),
+                      TextField(
+                        controller: describtionController,
+                        style: TextStyle(fontSize: 18, color: Colors.black),
+                        decoration: InputDecoration(
+                          border: InputBorder.none,
+                          hintText: 'Describtion',
+                          hintStyle: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 18,
+                            color: Color(0XFFAFAFAF),
+                          ),
+                        ),
                       ),
                     ],
                   ),
@@ -192,10 +220,16 @@ class NewInboxScreen extends StatelessWidget {
                   children: [
                     Row(
                       children: [
-                        MyDatePicker(),
+                        MyDatePicker(
+                          onDateSelected: (DateTime date) {
+                            setState(() {
+                              mydate = date;
+                            });
+                          },
+                        ),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
-                          children: const [
+                          children: [
                             Text(
                               'Date',
                               style: TextStyle(
@@ -205,10 +239,12 @@ class NewInboxScreen extends StatelessWidget {
                               height: 5,
                             ),
                             Text(
-                              'Tuesday, July 5, 2022',
+                              '${DateFormat('EEEE, MMMM d, yyyy').format(mydate)}',
                               style: TextStyle(
-                                  fontSize: 12, color: Color(0xff6589FF)),
-                            )
+                                fontSize: 12,
+                                color: Color(0xff6589FF),
+                              ),
+                            ),
                           ],
                         ),
                       ],
@@ -398,9 +434,10 @@ class NewInboxScreen extends StatelessWidget {
                           TextButton(
                             child: Text(
                               'Add Image',
-                              style: TextStyle(color: Colors.blueAccent, fontSize: 15),
+                              style: TextStyle(
+                                  color: Colors.blueAccent, fontSize: 15),
                             ),
-                            onPressed: (){},
+                            onPressed: () {},
                           ),
                         ],
                       ),

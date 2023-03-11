@@ -14,15 +14,15 @@ class User {
 
   User(
       {this.id,
-      this.name,
-      this.email,
-      this.token,
-      this.emailVerifiedAt,
-      this.image,
-      this.roleId,
-      this.createdAt,
-      this.updatedAt,
-      this.role});
+        this.name,
+        this.email,
+        this.token,
+        this.emailVerifiedAt,
+        this.image,
+        this.roleId,
+        this.createdAt,
+        this.updatedAt,
+        this.role});
 
   User.fromJson(Map<String, dynamic> json) {
     id = json['user']['id'];

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'package:intl/intl.dart';
 import '../utilities/constants.dart';
 import 'models_screen/date_picker.dart';
 import 'newinbox_screen.dart';
@@ -12,6 +12,7 @@ class SearchFilter extends StatefulWidget {
 }
 
 class _SearchFilterState extends State<SearchFilter> {
+  DateTime mydate = DateTime.now();
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -240,7 +241,13 @@ class _SearchFilterState extends State<SearchFilter> {
                     ),
                     child: Row(
                       children: [
-                        MyDatePicker(),
+                        MyDatePicker(
+                          onDateSelected: (DateTime date) {
+                            setState(() {
+                              mydate = date;
+                            });
+                          },
+                        ),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -262,10 +269,11 @@ class _SearchFilterState extends State<SearchFilter> {
                                           fontSize: 12, color: Colors.grey),
                                     ),
                                     Text(
-                                      'July 5, 2022',
+                                      '${DateFormat('EEEE, MMMM d, yyyy').format(mydate)}',
                                       style: TextStyle(
-                                          fontSize: 12,
-                                          color: Color(0xff6589FF)),
+                                        fontSize: 12,
+                                        color: Color(0xff6589FF),
+                                      ),
                                     ),
                                   ],
                                 ),
@@ -280,10 +288,11 @@ class _SearchFilterState extends State<SearchFilter> {
                                           fontSize: 12, color: Colors.grey),
                                     ),
                                     Text(
-                                      'July 5, 2022',
+                                      '${DateFormat('EEEE, MMMM d, yyyy').format(mydate)}',
                                       style: TextStyle(
-                                          fontSize: 12,
-                                          color: Color(0xff6589FF)),
+                                        fontSize: 12,
+                                        color: Color(0xff6589FF),
+                                      ),
                                     ),
                                   ],
                                 ),

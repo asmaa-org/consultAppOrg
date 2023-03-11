@@ -1,8 +1,10 @@
 import 'package:consultApp/screens/details_screen.dart';
+import 'package:consultApp/services/user_services.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'category_screen.dart';
+import 'login_screen.dart';
 import 'models_screen/org_card.dart';
 import 'models_screen/organization.dart';
 import 'models_screen/search_field.dart';
@@ -37,7 +39,7 @@ class _MyHomeScreenState extends State<MyHomeScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Image(image: AssetImage('assets/capture.png')),
+              Image(image: AssetImage('assets/logo.png')),
               TextButton(
                   onPressed: () {
                     Navigator.pushNamed(context, MyHomeScreen.id);
@@ -92,7 +94,7 @@ class _MyHomeScreenState extends State<MyHomeScreen> {
       ),
       appBar: AppBar(
         iconTheme: IconThemeData(color: Colors.blueAccent),
-        backgroundColor: Color(0xffE0EAF9),
+        backgroundColor: Color(0xfff3f6ff),
         elevation: 0,
         actions: [
           Padding(
@@ -100,9 +102,13 @@ class _MyHomeScreenState extends State<MyHomeScreen> {
             child: CircleAvatar(
               radius: 20,
               child: IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  UserServices().logoutUser();
+                  Navigator.pushNamedAndRemoveUntil(
+                      context, LoginScreen.id, (route) => false);
+                },
                 icon: Icon(
-                  FontAwesomeIcons.person,
+                  Icons.logout,
                   color: Colors.white,
                 ),
               ), //todo:add user image

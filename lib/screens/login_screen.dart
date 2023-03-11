@@ -165,7 +165,7 @@ class _LoginScreenState extends State<LoginScreen>
                                           keyboardType:
                                               TextInputType.emailAddress,
                                           controller: emailController,
-                                          field: 'Enter email',
+                                          field: 'Enter email or Name',
                                         ),
                                         SizedBox(
                                           height: 22.h,
@@ -188,12 +188,15 @@ class _LoginScreenState extends State<LoginScreen>
                                                     email: emailController.text,
                                                     password: passwordController
                                                         .text);
+                                            print(apiResponse.data);
+                                            print(apiResponse.error);
                                             if (apiResponse.error == null) {
                                               u = apiResponse.data as User;
                                               userServices.setToken(u.token!);
                                               // token =
                                               //     await userServices.getToken();
                                               // print(token);
+
                                               Navigator.pushNamed(
                                                   context, MyHomeScreen.id);
                                             }
@@ -258,10 +261,12 @@ class _LoginScreenState extends State<LoginScreen>
                                                                 .text,
                                                         name: nameController
                                                             .text);
+                                                print('hhhh');
+                                                print(apiResponse.data
+                                                    .toString());
+                                                print(apiResponse.error);
                                                 if (apiResponse.error == null) {
-                                                  u = apiResponse.data as User;
-                                                  userServices
-                                                      .setToken(u.token!);
+                                                  // userServices.setToken();
                                                   Navigator.pushNamed(
                                                       context, MyHomeScreen.id);
                                                 }

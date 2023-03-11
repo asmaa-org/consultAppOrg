@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../models/User.dart';
 import '../services/user_services.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -17,6 +18,8 @@ class _LoginScreenState extends State<LoginScreen>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
   UserServices userServices = UserServices();
+  User u = User();
+  String? token;
 
   @override
   void initState() {
@@ -162,7 +165,7 @@ class _LoginScreenState extends State<LoginScreen>
                                           keyboardType:
                                               TextInputType.emailAddress,
                                           controller: emailController,
-                                          field: 'Enter email or Name',
+                                          field: 'Enter email',
                                         ),
                                         SizedBox(
                                           height: 22.h,
@@ -185,9 +188,12 @@ class _LoginScreenState extends State<LoginScreen>
                                                     email: emailController.text,
                                                     password: passwordController
                                                         .text);
-                                            print(apiResponse.data);
-                                            print(apiResponse.error);
                                             if (apiResponse.error == null) {
+                                              u = apiResponse.data as User;
+                                              userServices.setToken(u.token!);
+                                              // token =
+                                              //     await userServices.getToken();
+                                              // print(token);
                                               Navigator.pushNamed(
                                                   context, MyHomeScreen.id);
                                             }
@@ -252,12 +258,10 @@ class _LoginScreenState extends State<LoginScreen>
                                                                 .text,
                                                         name: nameController
                                                             .text);
-                                                print('hhhh');
-                                                print(apiResponse.data
-                                                    .toString());
-                                                print(apiResponse.error);
                                                 if (apiResponse.error == null) {
-                                                  // userServices.setToken();
+                                                  u = apiResponse.data as User;
+                                                  userServices
+                                                      .setToken(u.token!);
                                                   Navigator.pushNamed(
                                                       context, MyHomeScreen.id);
                                                 }

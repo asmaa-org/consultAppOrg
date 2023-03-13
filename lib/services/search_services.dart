@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:consultApp/services/user_services.dart';
 import 'package:http/http.dart' as http;
 
 import '../apis/ApiResponse.dart';
@@ -8,6 +9,11 @@ import '../models/Mail.dart';
 import '../utilities/constants.dart';
 
 class SearchServices {
+  String? token ;
+  void setMyToken(){
+    UserServices userServices = UserServices();
+    token =  userServices.getToken() as String;
+  }
   Future<ApiResponse> searchText(int text) async {
     ApiResponse apiResponse = ApiResponse();
     try {

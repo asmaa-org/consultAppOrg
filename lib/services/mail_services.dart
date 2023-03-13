@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:consultApp/services/user_services.dart';
 import 'package:http/http.dart' as http;
 
 import '../apis/ApiResponse.dart';
@@ -9,6 +10,11 @@ import '../models/Mail.dart';
 import '../utilities/constants.dart';
 
 class MailServices {
+  String? token ;
+  void setMyToken(){
+    UserServices userServices = UserServices();
+    token =  userServices.getToken() as String;
+  }
   Future<ApiResponse> getAllMails() async {
     ApiResponse apiResponse = ApiResponse();
     try {
@@ -24,7 +30,8 @@ class MailServices {
       print(response.statusCode);
       switch (response.statusCode) {
         case 200:
-          apiResponse.data = Mail.fromJson(jsonDecode(response.body));
+        //  apiResponse.data = Mail.fromJson(jsonDecode(response.body));
+          apiResponse.data = jsonDecode(response.body)['mails']['data'];
           break;
         case 422:
           var errors = jsonDecode(response.body)['errors'];
@@ -77,7 +84,7 @@ class MailServices {
     return apiResponse;
   }
 
-  Future<ApiResponse> createMail(Mail mail, List<File> files) async {
+  Future<ApiResponse> createMail(Mail mail, [List<File>? files]) async {
     ApiResponse apiResponse = ApiResponse();
     try {
       final response = await http.post(Uri.parse(mailsApi), headers: {

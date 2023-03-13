@@ -19,7 +19,6 @@ class _LoginScreenState extends State<LoginScreen>
   late TabController _tabController;
   UserServices userServices = UserServices();
   User u = User();
-  String? token;
 
   @override
   void initState() {
@@ -193,10 +192,6 @@ class _LoginScreenState extends State<LoginScreen>
                                             if (apiResponse.error == null) {
                                               u = apiResponse.data as User;
                                               userServices.setToken(u.token!);
-                                              // token =
-                                              //     await userServices.getToken();
-                                              // print(token);
-
                                               Navigator.pushNamed(
                                                   context, MyHomeScreen.id);
                                             }
@@ -266,7 +261,8 @@ class _LoginScreenState extends State<LoginScreen>
                                                     .toString());
                                                 print(apiResponse.error);
                                                 if (apiResponse.error == null) {
-                                                  // userServices.setToken();
+                                                  u = apiResponse.data as User;
+                                                  userServices.setToken(u.token!);
                                                   Navigator.pushNamed(
                                                       context, MyHomeScreen.id);
                                                 }

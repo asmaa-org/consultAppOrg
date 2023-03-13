@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:consultApp/models/Category.dart';
+import 'package:consultApp/services/user_services.dart';
 import 'package:http/http.dart' as http;
 
 import '../apis/ApiResponse.dart';
@@ -8,7 +9,12 @@ import '../apis/api.dart';
 import '../utilities/constants.dart';
 
 class CategoryServices {
-  Future<ApiResponse> getAllCategory() async {
+  String? token ;
+  void setMyToken(){
+    UserServices userServices = UserServices();
+    token =  userServices.getToken() as String;
+  }
+  Future<ApiResponse> getAllCategories() async {
     ApiResponse apiResponse = ApiResponse();
     try {
       final response = await http.get(

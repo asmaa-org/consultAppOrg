@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:consultApp/services/user_services.dart';
 import 'package:http/http.dart' as http;
 
 import '../apis/ApiResponse.dart';
@@ -8,6 +9,11 @@ import '../models/Sender.dart';
 import '../utilities/constants.dart';
 
 class SenderServices {
+  String? token ;
+  void setMyToken(){
+    UserServices userServices = UserServices();
+    token =  userServices.getToken() as String;
+  }
   Future<ApiResponse> getAllSenders(bool hasMail) async {
     ApiResponse apiResponse = ApiResponse();
     try {
@@ -77,6 +83,7 @@ class SenderServices {
   }
 
   Future<ApiResponse> createSender(Sender sender) async {
+    print('create sender');
     ApiResponse apiResponse = ApiResponse();
     try {
       final response = await http.post(Uri.parse(createSenderApi), headers: {
@@ -84,9 +91,9 @@ class SenderServices {
         'Authorization': 'Bearer $token',
       }, body: {
         'name': sender.name,
-        'mobile': sender.mobile,
-        'address': sender.address,
-        'category_id': sender.categoryId,
+        // 'mobile': sender.mobile,
+        // 'address': sender.address,
+        'category_id': '${sender.categoryId}',
       });
       print('Token : ${token}');
       print(response);
@@ -108,6 +115,7 @@ class SenderServices {
       }
     } catch (e) {
       apiResponse.error = serverError;
+      print(e );
     }
     return apiResponse;
   }

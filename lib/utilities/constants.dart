@@ -9,7 +9,3 @@ BoxDecoration(color: Colors.red, borderRadius: BorderRadius.circular(10));
 const serverError = 'Server Error';
 const unauthorized = 'unauthorized';
 const somethingWentWrong = 'Something Error';
-
-//token
-UserServices userServices = UserServices();
-Future<String?> token = userServices.getToken();

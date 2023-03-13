@@ -1,6 +1,8 @@
 import 'dart:convert';
 
+import 'package:consultApp/services/user_services.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../apis/ApiResponse.dart';
 import '../apis/api.dart';
@@ -8,6 +10,11 @@ import '../models/Tag.dart';
 import '../utilities/constants.dart';
 
 class TagServices {
+  String? token ;
+  void setMyToken(){
+    UserServices userServices = UserServices();
+    token =  userServices.getToken() as String;
+  }
   Future<ApiResponse> getAllTags() async {
     ApiResponse apiResponse = ApiResponse();
     try {
@@ -113,14 +120,14 @@ class TagServices {
     return apiResponse;
   }
 
-  Future<ApiResponse> createTag(Tag tag) async {
+  Future<ApiResponse> createTag(String name) async {
     ApiResponse apiResponse = ApiResponse();
     try {
       final response = await http.post(Uri.parse(tagsApi), headers: {
         'Accept': 'application/json',
         'Authorization': 'Bearer $token',
       }, body: {
-        'name': tag.name,
+        'name': name,
       });
       print('Token : ${token}');
       print(response);

@@ -20,6 +20,7 @@ class UserServices {
 
   Future<String?> getToken() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
+    token = prefs.getString('token');
     return prefs.getString('token');
   }
 

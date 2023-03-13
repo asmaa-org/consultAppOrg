@@ -1,8 +1,12 @@
 import 'package:consultApp/screens/details_screen.dart';
 import 'package:consultApp/services/user_services.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+import '../models/Category.dart';
+import '../models/Mail.dart';
+import '../services/category_services.dart';
+import '../services/mail_services.dart';
+import '../services/search_services.dart';
 import 'category_screen.dart';
 import 'login_screen.dart';
 import 'models_screen/org_card.dart';
@@ -11,6 +15,7 @@ import 'models_screen/search_field.dart';
 import 'models_screen/status_card.dart';
 import 'models_screen/tags.dart';
 import 'models_screen/visability.dart';
+import 'my_mails.dart';
 import 'newinbox_screen.dart';
 import 'search_filters_screen.dart';
 import 'status_screen.dart';
@@ -28,6 +33,53 @@ class _MyHomeScreenState extends State<MyHomeScreen> {
   bool officalOrgIsClicked = false;
   bool OthersIsClicked = false;
 
+  bool isClicked = false;
+
+  SearchServices searchServices = SearchServices();
+  List<Mail> mails = [];
+  List<Mail> serachMails = [];
+  List<Category> categories = [];
+
+  Future<List<Mail>> getMails(int id) async {
+    MailServices mailServices = MailServices();
+    var apiResponse = await mailServices.getMail(id);
+    if (apiResponse.error == null) {
+      mails = apiResponse.data as List<Mail>;
+      print(mails);
+    }
+    return mails;
+  }
+
+  void getCategories() async {
+    CategoryServices cs = CategoryServices();
+    var apiResponse = await cs.getAllCategories();
+    if (apiResponse.error == null) {
+      categories = apiResponse.data as List<Category>;
+      print(categories);
+    }
+  }
+
+  Widget showMails(int id) {
+    List<Mail> myMails = getMails(id) as List<Mail>;
+    if (myMails.isNotEmpty) {
+      return Column(
+        children: [
+          for (var mail in myMails) ...{
+            OrgCard(
+              org: Organization(
+                description: mail.description!,
+                orgName: mail.sender!.name!,
+                subject: mail.subject!,
+                status: mail.status!.name!,
+              ),
+            ),
+          }
+        ],
+      );
+    } else {
+      return SizedBox();
+    }
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -116,8 +168,8 @@ class _MyHomeScreenState extends State<MyHomeScreen> {
           ),
         ],
       ),
-      body: SingleChildScrollView(
-        child: SafeArea(
+      body: SafeArea(
+        child: SingleChildScrollView(
           child: Column(
             children: [
               Padding(
@@ -150,49 +202,11 @@ class _MyHomeScreenState extends State<MyHomeScreen> {
                         ),
                       ),
                     ),
-                    VisabiltyCard(
-                      isClicked: officalOrgIsClicked,
-                      text: 'Oficial Organization',
-                      child: OrgCard(
-                        org: Organization(
-                          description:
-                              'here we add the description of the subject',
-                          orgName: 'Orgnization Name',
-                          subject: 'here we add subject',
-                          status: 'Inbox',
-                        ),
-                      ),
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        const Text(
-                          "NGOs",
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 20,
-                          ),
-                        ),
-                        IconButton(
-                            onPressed: () {
-                              //todo:navegate to NGOs screen
-                            },
-                            icon: Icon(Icons.arrow_right)),
-                      ],
-                    ),
-                    VisabiltyCard(
-                      isClicked: OthersIsClicked,
-                      text: 'Others',
-                      child: OrgCard(
-                        org: Organization(
-                          description:
-                              'here we add the description of the subject',
-                          orgName: 'Orgnization Name',
-                          subject: 'here we add subject',
-                          status: 'Pending',
-                        ),
-                      ),
-                    ),
+                    mails.isNotEmpty
+                        ? MyMails(
+                      mails: mails,
+                    )
+                        : SizedBox(),
                     SizedBox(
                       height: 10,
                     ),
@@ -212,7 +226,7 @@ class _MyHomeScreenState extends State<MyHomeScreen> {
                           borderRadius: BorderRadius.circular(25)),
                       height: 150,
                       width: double.infinity,
-                      child: ListOfTags(),
+                      //child: ListOfTags(),
                     ),
                     SizedBox(
                       height: 10,

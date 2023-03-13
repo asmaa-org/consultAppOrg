@@ -1,5 +1,10 @@
+import 'package:consultApp/apis/ApiResponse.dart';
+import 'package:consultApp/models/Sender.dart';
+import 'package:consultApp/services/mail_services.dart';
+import 'package:consultApp/services/sender_services.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import '../models/Mail.dart';
 import 'category_screen.dart';
 import 'home_screen.dart';
 import 'models_screen/date_picker.dart';
@@ -28,7 +33,9 @@ class _NewInboxScreenState extends State<NewInboxScreen> {
 
   TextEditingController desicionController = TextEditingController();
   DateTime mydate = DateTime.now();
-
+  MailServices mailServices = MailServices();
+  Mail mail = Mail();
+  SenderServices senderServices = SenderServices();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -54,9 +61,28 @@ class _NewInboxScreenState extends State<NewInboxScreen> {
               style: TextStyle(fontSize: 18, color: Colors.black),
             ),
             TextButton(
-              onPressed: () {
-                Navigator.pushNamedAndRemoveUntil(
-                    context, MyHomeScreen.id, (r) => false);
+              onPressed: () async {
+                print('object');
+                 ApiResponse apiRes = await senderServices.createSender(Sender(name: senderController.text,categoryId: 1,),);
+                 if(apiRes.error ==null){
+                   Sender newSender = apiRes.data as Sender;
+                   print(newSender.name);
+                   // mail.description = describtionController.text;
+                   // mail.decision = desicionController.text;
+                   // mail.archiveDate = mydate;
+                   // mail.senderId = newSender.id;
+                   //
+                   // var apiResponse = await mailServices.createMail(mail);
+                   // print(apiResponse.data);
+                   // print(apiResponse.error);
+                   // if (apiResponse.error == null) {
+                   //   mail = apiResponse.data as Mail;
+                   //   Navigator.pushNamedAndRemoveUntil(
+                   //       context, MyHomeScreen.id, (r) => false);
+                   // }
+                 }
+
+
               },
               child: Text(
                 'Done',
@@ -407,6 +433,7 @@ class _NewInboxScreenState extends State<NewInboxScreen> {
                         ),
                       ),
                       TextField(
+                        controller: desicionController,
                         style: TextStyle(fontSize: 14, color: Colors.black),
                         decoration: InputDecoration(
                           border: InputBorder.none,

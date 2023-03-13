@@ -1,6 +1,7 @@
 import 'package:consultApp/screens/newinbox_screen.dart';
 import 'package:flutter/material.dart';
 
+import '../services/tag_services.dart';
 import 'models_screen/tags.dart';
 
 class TagsScreen extends StatefulWidget {
@@ -11,6 +12,19 @@ class TagsScreen extends StatefulWidget {
 }
 
 class _TagsScreenState extends State<TagsScreen> {
+  List tags = [];
+  TagServices tagServices = TagServices();
+ late TextEditingController controller ;
+ @override
+  void initState() {
+    controller = TextEditingController();
+    super.initState();
+  }
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -67,7 +81,9 @@ class _TagsScreenState extends State<TagsScreen> {
                         borderRadius: BorderRadius.circular(25)),
                     height: 150,
                     width: double.infinity,
-                    child: ListOfTags(),
+                    child: ListOfTags(
+                      label: controller.text,
+                    ),
                   ),
                   SizedBox(
                     height: 10,
@@ -81,22 +97,25 @@ class _TagsScreenState extends State<TagsScreen> {
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: TextField(
+                        controller: controller,
                         decoration: InputDecoration(
                           border: InputBorder.none,
                           hintText: 'Add New Tags ...',
                         ),
+                        onTap: (){
+                          tagServices.createTag(controller.text).then((value) {
+                            controller.clear();
+                            setState(() {
+                            });
+
+                          });
+                        },
+
                       ),
                     ),
                   ),
                 ],
               ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(
-                  'The unselected will searched \n And deleted if there is no mail \n Has the tag',
-                  style: TextStyle(color: Colors.red, fontSize: 18),
-                ),
-              )
             ],
           ),
         ),

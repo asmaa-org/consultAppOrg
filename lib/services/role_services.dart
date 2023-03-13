@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:consultApp/models/Role.dart';
+import 'package:consultApp/services/user_services.dart';
 import 'package:http/http.dart' as http;
 
 import '../apis/ApiResponse.dart';
@@ -8,6 +9,11 @@ import '../apis/api.dart';
 import '../utilities/constants.dart';
 
 class RoleServices {
+  String? token ;
+  void setMyToken(){
+    UserServices userServices = UserServices();
+    token =  userServices.getToken() as String;
+  }
   Future<ApiResponse> getAllRoles() async {
     ApiResponse apiResponse = ApiResponse();
     try {
